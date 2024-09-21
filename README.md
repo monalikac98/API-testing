@@ -1,2 +1,2 @@
 # API-testing
-Practice of manual and automation API testing 
+Testing API with Postman- Practice
