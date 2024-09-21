@@ -1,0 +1,184 @@
+{
+	"info": {
+		"_postman_id": "48a85c41-79c9-4e3c-962c-54099d9ceb05",
+		"name": "StudentsAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "38330198"
+	},
+	"item": [
+		{
+			"name": "Get 1 Student Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ststus Code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content type header is present\", () => {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Connection header value is keep-alive\", () => {\r",
+							"   pm.expect(pm.response.headers.get('Connection')).to.eql('keep-alive');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Time is less than 50ms\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(10);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Test data type of response\", () =>{\r",
+							"     pm.expect(jsonData).to.be.an(\"object\");\r",
+							"    pm.expect(jsonData.name).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.courses).to.be.an(\"array\");\r",
+							"});\r",
+							"\r",
+							"var schema = {\r",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r",
+							"  \"description\": \"\",\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"id\": {\r",
+							"      \"type\": \"string\",\r",
+							"      \"minLength\": 1\r",
+							"    },\r",
+							"    \"name\": {\r",
+							"      \"type\": \"string\",\r",
+							"      \"minLength\": 1\r",
+							"    },\r",
+							"    \"location\": {\r",
+							"      \"type\": \"string\",\r",
+							"      \"minLength\": 1\r",
+							"    },\r",
+							"    \"phone\": {\r",
+							"      \"type\": \"string\",\r",
+							"      \"minLength\": 1\r",
+							"    },\r",
+							"    \"courses\": {\r",
+							"      \"type\": \"array\",\r",
+							"      \"items\": {\r",
+							"        \"required\": [],\r",
+							"        \"properties\": {}\r",
+							"      }\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"id\",\r",
+							"    \"name\",\r",
+							"    \"location\",\r",
+							"    \"phone\",\r",
+							"    \"courses\"\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.test(\"schema is valid\" , ()=> {\r",
+							"    pm.expect (tv4.validate(jsonData, schema)).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{url_global}}/students/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All students record",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{url_global}}/students"
+			},
+			"response": []
+		},
+		{
+			"name": "Create new student Record",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", () => {\r",
+							"   pm.expect(pm.response.code).to.be.oneOf([201,202]);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Scott\",\r\n    \"location\": \"France\",\r\n    \"phone\": \"123456\",\r\n    \"courses\": [\r\n        \"C\",\r\n        \"C++\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/students"
+			},
+			"response": []
+		},
+		{
+			"name": "Update the student record",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Scott\",\r\n    \"location\": \"Germany\",\r\n    \"phone\": \"654321\",\r\n    \"courses\": [\r\n        \"C#\",\r\n        \"C++\"\r\n    ]\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/students/ac9f"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Student Record",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:3000/students/ac9f"
+			},
+			"response": []
+		}
+	]
+}

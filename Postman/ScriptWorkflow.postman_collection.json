@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "2093164c-63fc-42d5-8880-d78a3f0928f3",
+		"name": "ScriptWorkflow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "38330198"
+	},
+	"item": [
+		{
+			"name": "Folder",
+			"item": [
+				{
+					"name": "Get 1 Student Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(\"post-response script at request level\");\r",
+									"\r",
+									"pm.test(\"Ststus Code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content type header is present\", () => {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Connection header value is keep-alive\", () => {\r",
+									"   pm.expect(pm.response.headers.get('Connection')).to.eql('keep-alive');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response Time is less than 50ms\", () => {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(10);\r",
+									"});\r",
+									"\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of response\", () =>{\r",
+									"     pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.name).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.courses).to.be.an(\"array\");\r",
+									"});\r",
+									"\r",
+									"var schema = {\r",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r",
+									"  \"description\": \"\",\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"id\": {\r",
+									"      \"type\": \"string\",\r",
+									"      \"minLength\": 1\r",
+									"    },\r",
+									"    \"name\": {\r",
+									"      \"type\": \"string\",\r",
+									"      \"minLength\": 1\r",
+									"    },\r",
+									"    \"location\": {\r",
+									"      \"type\": \"string\",\r",
+									"      \"minLength\": 1\r",
+									"    },\r",
+									"    \"phone\": {\r",
+									"      \"type\": \"string\",\r",
+									"      \"minLength\": 1\r",
+									"    },\r",
+									"    \"courses\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": {\r",
+									"        \"required\": [],\r",
+									"        \"properties\": {}\r",
+									"      }\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"id\",\r",
+									"    \"name\",\r",
+									"    \"location\",\r",
+									"    \"phone\",\r",
+									"    \"courses\"\r",
+									"  ]\r",
+									"}\r",
+									"\r",
+									"pm.test(\"schema is valid\" , ()=> {\r",
+									"    pm.expect (tv4.validate(jsonData, schema)).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"pre-request script at Request level\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url_global}}/students/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All students record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/students"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"console.log(\"pre-request script at Folder level\");"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"console.log(\"post-response script at folder level\");"
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"console.log(\"pre-request script at Collection level\");"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"console.log(\"post-response script at Collection level\");"
+				]
+			}
+		}
+	]
+}
