@@ -1,0 +1,29 @@
+{
+	"info": {
+		"_postman_id": "f07ddec7-c44d-46d5-ae10-c092ba71ee44",
+		"name": "FileUpload",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "38330198"
+	},
+	"item": [
+		{
+			"name": "Single File Upload",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "postman-cloud:///1ef78085-5958-4af0-be03-b252cf713a44"
+						}
+					]
+				},
+				"url": "http://localhost:8080/uploadFile"
+			},
+			"response": []
+		}
+	]
+}
